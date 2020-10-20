@@ -60,7 +60,7 @@ sct_label_vertebrae -i ${file_t2w}.nii.gz -s ${file_seg_t2} -c t2 -discfile ${la
 sct_label_vertebrae -i ${file_t1w}.nii.gz -s ${file_seg_t1} -c t1 -discfile ${label_file_t1} -ofolder $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
 
 ## Change the name to avoid overwriting files output by sct_label_vertebrae during prediction later. 
-mv $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_seg_labeled-disc.nii.gz $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_projected-gt.nii.gz
+mv $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_seg_labeled-discs.nii.gz $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_projected-gt.nii.gz
 
 
-mv $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_seg_labeled-disc.nii.gz $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_projected-gt.nii.gz
+mv $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_seg_labeled-discs.nii.gz $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_projected-gt.nii.gz
