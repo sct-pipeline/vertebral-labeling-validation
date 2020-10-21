@@ -34,7 +34,7 @@ cd $PATH_RESULTS
 mkdir -p data/derivatives/labels
 cd data
 
-mkdir -p $SUBJECT/anat
+cp -r $PATH_DATA/$SUBJECT ./
 cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_RESULTS/data/derivatives/labels
 
 cd $PATH_RESULTS/data/$SUBJECT/anat/
@@ -51,8 +51,8 @@ sct_label_vertebrae -i ${file_t1w}.nii.gz -s ${file_seg_t1} -c t1 -ofolder $PATH
 ## compare 
 cd $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
 
-t2_err=$(sct_label_utils -i ${file_t2w}_seg_labeled_discs.nii.gz -MSE ${file_t2w}_seg_projected-gt.nii.gz)
-t1_err=$(sct_label_utils -i ${file_t1w}_seg_labeled_discs.nii.gz -MSE ${file_t1w}_seg_projected-gt.nii.gz)
+t2_err=$(sct_label_utils -i ${file_t2w}_seg_labeled_discs.nii.gz -MSE ${file_t2w}_projected-gt.nii.gz)
+t1_err=$(sct_label_utils -i ${file_t1w}_seg_labeled_discs.nii.gz -MSE ${file_t1w}_projected-gt.nii.gz)
 
 ## strip unneeded content
 t2_err=${t2_err#*)}
