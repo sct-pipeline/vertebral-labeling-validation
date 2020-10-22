@@ -1,5 +1,5 @@
-path_data: /home/lucas/prepare_gt/results
-path_output: /home/lucas/predcition_version/results
+path_data: /home/lucas/prepare_gt/results/data
+path_output: /home/lucas/prediction_version/results
 script: /home/lucas/vertebral-labeling-validation/run_prediction.sh
 jobs: -1
 batch_log: sct_run_batch_log.txt
