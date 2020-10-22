@@ -22,3 +22,9 @@ Run the script:
 ```bash
 sct_run_batch -c parameters/<CONFIG_FILE>
 ```
+
+Perform statistics:
+```bash
+python concat_csv.py -p <PATH_OUTPUT>/results/data/derivatives/labels/
+```
+Where `PATH_OUTPUT` is the output of `run_prediction.sh`
