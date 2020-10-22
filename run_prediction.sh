@@ -66,13 +66,14 @@ t1_err_mm=${t1_err#*=}
 t1_err_mm=${t1_err_mm%%mm*}
 
 ## get MSE error
+echo $t2_err
 t2_err_mse=${t2_err#*: }
-
+echo $t2_err_mse
 t1_err_mse=${t1_err#*: }
 
 ## create csv
 echo "file,error_mm,error_mse,contrast">> result.csv
-echo "$file_t2w,$t2_err_mm,$t2_error_mse,t2">>result.csv
-echo "$file_t1w,$t1_err_mm,$t1_error_mse,t2">>result.csv
+echo "$file_t2w,$t2_err_mm,$t2_err_mse,t2">>result.csv
+echo "$file_t1w,$t1_err_mm,$t1_err_mse,t1">>result.csv
 
 
