@@ -38,41 +38,31 @@ cp -r $PATH_DATA/$SUBJECT ./
 cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivatives/labels
 
 cd /data/$SUBJECT/anat/
+echo "file,error_mm,error_mse,contrast">> $PATH_RESULT/"$SUBJECT"_result.csv
 ## Setup file names
-file_t2w=${SUBJECT}_T2w
-file_t1w=${SUBJECT}_T1w
-file_seg_t2=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_seg.nii.gz
-file_seg_t1=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_seg.nii.gz
+contrast='"T1" "T2"'
+for i in $contrast; do
+	file=${SUBJECT}_"$i"w
+	file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
+	c_args=${$i/T/t}
 
-## make predictions
-sct_label_vertebrae -i ${file_t2w}.nii.gz -s ${file_seg_t2} -c t2 -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
+	## make predictions
+	sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c "$c_args" -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 
-sct_label_vertebrae -i ${file_t1w}.nii.gz -s ${file_seg_t1} -c t1 -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 ## compare 
-cd $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
-
-t2_err=$(sct_label_utils -i ${file_t2w}_seg_labeled_discs.nii.gz -MSE ${file_t2w}_projected-gt.nii.gz)
-t1_err=$(sct_label_utils -i ${file_t1w}_seg_labeled_discs.nii.gz -MSE ${file_t1w}_projected-gt.nii.gz)
+	err=$(sct_label_utils -i $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${file}_seg_labeled_discs.nii.gz -MSE $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${file}_projected-gt.nii.gz)
 
 ## strip unneeded content
-t2_err=${t2_err#*)}
-t1_err=${t1_err#*)}
+	err=${err#*)}
 
 ## get error in mm
-t2_err_mm=${t2_err#*=}
-t2_err_mm=${t2_err_mm%%mm*}
-
-t1_err_mm=${t1_err#*=}
-t1_err_mm=${t1_err_mm%%mm*}
+	err_mm=${err#*=}
+	err_mm=${err_mm%%mm*}
 
 ## get MSE error
-echo $t2_err
-t2_err_mse=${t2_err#*: }
-echo $t2_err_mse
-t1_err_mse=${t1_err#*: }
+	err_mse=${err#*: }
 
 ## create csv
-echo "file,error_mm,error_mse,contrast">> $PATH_RESULT/"$SUBJECT"_result.csv
-echo "$file_t2w,$t2_err_mm,$t2_err_mse,t2">>$PATH_RESULT/"$SUBJECT"_result.csv
-echo "$file_t1w,$t1_err_mm,$t1_err_mse,t1">>$PATH_RESULT/"$SUBJECT"_result.csv
+	echo "$file,$err_mm,$err_mse,$c_args">>$PATH_RESULT/"$SUBJECT"_result.csv
+done
 
