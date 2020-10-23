@@ -38,28 +38,23 @@ cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivativ
 
 cd $PATH_DATA_PROCESSED/data/$SUBJECT/anat/
 ## Setup file names
-file_t2w=${SUBJECT}_T2w
-file_t1w=${SUBJECT}_T1w
+contrast = '"T1" "T2"'
+for i in $contrast; do
+	file=${SUBJECT}_"$i"w
+	c_arg = ${i/T/t}
 
-## copy needed file (t1w and T2w other are not needed) 
-cp $PATH_DATA/$SUBJECT/anat/${file_t2w}.nii.gz ./
-cp $PATH_DATA/$SUBJECT/anat/${file_t1w}.nii.gz ./
-## Deepseg to get needed segmentation. 
-sct_deepseg_sc -i ${file_t2w}.nii.gz -c t2 -ofolder $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
-sct_deepseg_sc -i ${file_t1w}.nii.gz -c t1 -ofolder $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
+	## copy needed file (t1w and T2w other are not needed) 
+	cp $PATH_DATA/$SUBJECT/anat/${file}.nii.gz ./
+	## Deepseg to get needed segmentation. 
+	sct_deepseg_sc -i ${file}.nii.gz -c "$c_arg"  -ofolder $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
 
-## seg file name
-file_seg_t2=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_seg.nii.gz
-file_seg_t1=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_seg.nii.gz
-label_file_t1=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_labels-disc-manual.nii.gz
-label_file_t2=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_labels-disc-manual.nii.gz
+	## seg file name
+	file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
+	label_file=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_labels-disc-manual.nii.gz
 
-sct_label_vertebrae -i ${file_t2w}.nii.gz -s ${file_seg_t2} -c t2 -discfile ${label_file_t2} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
+	sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c t2 -discfile ${label_file} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 
-sct_label_vertebrae -i ${file_t1w}.nii.gz -s ${file_seg_t1} -c t1 -discfile ${label_file_t1} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
+	## Change the name to avoid overwriting files output by sct_label_vertebrae during prediction later. 
+	mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"_projected-gt.nii.gz
+done
 
-## Change the name to avoid overwriting files output by sct_label_vertebrae during prediction later. 
-mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T2w_projected-gt.nii.gz
-
-
-mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_T1w_projected-gt.nii.gz
