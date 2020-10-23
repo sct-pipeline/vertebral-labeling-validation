@@ -13,7 +13,7 @@ def concat_csv(path):
     # path should be path to $PATH_RESULT/results/data/derivatives/labels following run_prediction 
     os.chdir(path)
     t = os.listdir("./")
-    df_results = pd.concat([pd.read_csv(os.path.join(f,"anat","result.csv"), index_col="file") for f in t ])
+    df_results = pd.concat([pd.read_csv(f, index_col="file") for f in t ])
     df_t1 = df_results.loc[df_results['contrast'] == 't1']
     df_t2 = df_results.loc[df_results['contrast'] == 't2']
     df_t1.to_csv("metrics_t1.csv")
