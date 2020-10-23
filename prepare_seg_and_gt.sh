@@ -38,7 +38,7 @@ cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivativ
 
 cd $PATH_DATA_PROCESSED/data/$SUBJECT/anat/
 ## Setup file names
-contrast = '"T1" "T2"'
+contrast='"T1" "T2"'
 for i in $contrast; do
 	file=${SUBJECT}_"$i"w
 	c_arg = ${i/T/t}
