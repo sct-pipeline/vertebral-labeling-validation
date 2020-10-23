@@ -38,23 +38,23 @@ cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivativ
 
 cd $PATH_DATA_PROCESSED/data/$SUBJECT/anat/
 ## Setup file names
-contrast='"T1" "T2"'
+contrast='T1 T2'
 for i in $contrast; do
-	file=${SUBJECT}_"$i"w
-	c_arg = ${i/T/t}
+	file=${SUBJECT}_${i}w
+	c_args=${i/T/t}
 
 	## copy needed file (t1w and T2w other are not needed) 
 	cp $PATH_DATA/$SUBJECT/anat/${file}.nii.gz ./
 	## Deepseg to get needed segmentation. 
-	sct_deepseg_sc -i ${file}.nii.gz -c "$c_arg"  -ofolder $PATH_RESULTS/data/derivatives/labels/$SUBJECT/anat/
+	sct_deepseg_sc -i ${file}.nii.gz -c ${c_args}  -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 
 	## seg file name
-	file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
-	label_file=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_labels-disc-manual.nii.gz
+	file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_seg.nii.gz
+	label_file=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_labels-disc-manual.nii.gz
 
 	sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c t2 -discfile ${label_file} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 
 	## Change the name to avoid overwriting files output by sct_label_vertebrae during prediction later. 
-	mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"_projected-gt.nii.gz
+	mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}_projected-gt.nii.gz
 done
 
