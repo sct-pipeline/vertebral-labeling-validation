@@ -32,19 +32,18 @@ FILEPARAM=$2
 cd $PATH_DATA_PROCESSED
 # Copy source images and segmentations
 mkdir -p data/derivatives/labels
-cd data
 
 cp -r $PATH_DATA/$SUBJECT ./
 cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivatives/labels
 
-cd /data/$SUBJECT/anat/
-echo "file,error_mm,error_mse,contrast">> $PATH_RESULT/"$SUBJECT"_result.csv
+cd $PATH_DATA_PROCESSED/$SUBJECT/anat/
+echo "file,error_mm,error_mse,contrast">> $PATH_RESULTS/"$SUBJECT"_result.csv
 ## Setup file names
-contrast='"T1" "T2"'
+contrast='T1 T2'
 for i in $contrast; do
 	file=${SUBJECT}_"$i"w
 	file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
-	c_args=${$i/T/t}
+	c_args=${i/T/t}
 
 	## make predictions
 	sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c "$c_args" -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
@@ -63,6 +62,6 @@ for i in $contrast; do
 	err_mse=${err#*: }
 
 ## create csv
-	echo "$file,$err_mm,$err_mse,$c_args">>$PATH_RESULT/"$SUBJECT"_result.csv
+	echo "$file,$err_mm,$err_mse,$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
 done
 
