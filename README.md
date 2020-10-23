@@ -1,9 +1,30 @@
-Repository containing scripts to evaluate sct\_vertebral\_labeling due to new changes. 
-Evaluation will be performed on spine-generic/data-multi-subjects
+The purpose of this repository is to evaluate the performance of sct\_vertebral\_labeling across the implementation of new methods.
 
-to use run sct_run_batch -c parameters/<name of config file>
-  
-  
-The first script named `prepare_seg_and_gt.sh` is used with the `parameters/prepare_seg_gt.yml` config file. It aims at projecting the ground truth, which are label on the posterior side of the disc, to the center of the spinal cord. 
-The second script named `run_prediction.sh` is used with the `parameters/run_prediction.yml` config file. It aims at running sct_label_vertebrae prediction and comparing that to the ground truth using `sct_label_utils`'s MSE option. The results is then saved in a csv file in the derivatives.
+### Requirements
 
+- SCT version 5.0.0
+- spine-generic multi-subject dataset [r20201001](https://github.com/spine-generic/data-multi-subject/releases/tag/r20201001)
+
+### Getting started
+
+Clone the repos
+
+```bash
+git clone https://github.com/sct-pipeline/vertebral-labeling-validation
+cd vertebral-labeling-validation
+```
+
+Edit the parameter files to your local configuration:
+- `parameters/prepare_seg_gt.yml`: Configuration file for `prepare_seg_and_gt.sh`. This script projects labels onto the center of the spinal cord. These labels are single voxels located at the posterior side of each intervertebral disc.
+- `parameters/run_prediction.yml`: Configuration file for `run_prediction.sh`. This script runs `sct_label_vertebrae` and compares outputs to the ground truth using `sct_label_utils`. The Mean Square Error is calculated. Results are saved in a CSV file within the derivatives.
+
+Run the script:
+```bash
+sct_run_batch -c parameters/<CONFIG_FILE>
+```
+
+Perform statistics:
+```bash
+python concat_csv.py -p <PATH_OUTPUT>/results/data/derivatives/labels/
+```
+Where `PATH_OUTPUT` is the output of `run_prediction.sh`
