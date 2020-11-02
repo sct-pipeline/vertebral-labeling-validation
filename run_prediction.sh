@@ -58,10 +58,7 @@ for i in $contrast; do
 	err_mm=${err#*=}
 	err_mm=${err_mm%%mm*}
 
-## get MSE error
-	err_mse=${err#*: }
-
-## create csv
-	echo "$file,$err_mm,$err_mse,$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
+## add csv line with the error and contrast.
+	echo "$file,$err_mm,$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
 done
 
