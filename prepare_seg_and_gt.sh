@@ -55,10 +55,10 @@ for i in $contrast; do
 	sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c t2 -discfile ${label_file} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/
 
 	## Change the name to avoid overwriting files output by sct_label_vertebrae during prediction later. 
-	mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}_projected-gt.nii.gz
+	mv $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_seg_labeled_discs.nii.gz $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_projected-gt.nii.gz
 
 	## Chage data type to int 16 for "projected_gt"
-	sct_image -i $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}_projected-gt.nii.gz -type int16
+	sct_image -i $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_${i}w_projected-gt.nii.gz -type int16
 
 done
 
