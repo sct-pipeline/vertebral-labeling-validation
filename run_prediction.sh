@@ -39,7 +39,7 @@ cp -r $PATH_DATA/$SUBJECT ./
 cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivatives/labels
 
 cd $PATH_DATA_PROCESSED/$SUBJECT/anat/
-echo "file,error_mm,label_missing,contrast">> $PATH_RESULTS/"$SUBJECT"_result.csv
+echo "file;error_mm;label_missing;contrast">> $PATH_RESULTS/"$SUBJECT"_result.csv
 ## Setup file names
 contrast='T1 T2'
 for i in $contrast; do
@@ -64,6 +64,6 @@ for i in $contrast; do
 	##err_mm=${err_mm%%mm*}
 
 ## add csv line with the error and contrast.
-	echo "$file,$err,$label_missing,$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
+	echo "$file;$err;$label_missing;$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
 done
 
