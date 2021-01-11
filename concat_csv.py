@@ -16,8 +16,25 @@ def concat_csv(path):
     df_results = pd.concat([pd.read_csv(f, index_col="file", delimiter=';') for f in t ])
     df_t1 = df_results.loc[df_results['contrast'] == 't1']
     df_t2 = df_results.loc[df_results['contrast'] == 't2']
+    df_t1['number_missed'] = df_t1.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
+    df_t2['number_missed'] = df_t2.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
     df_t1.to_csv("metrics_t1.csv")
     df_t2.to_csv("metrics_t2.csv")
+
+
+def get_missed_total(x):
+    splited = x.split()
+    for i in range (len(splited)):
+        splited[i] = splited[i].strip('()[],')
+    res = 0 
+    for i in range(len(splited)):
+        try:
+            float(splited[i])
+            res +=1
+        except:
+            pass
+    return res
+
 
 
 def main():
