@@ -10,16 +10,26 @@ def get_parser():
 
 
 def concat_csv(path):
-    # path should be path to $PATH_RESULT/results/data/derivatives/labels following run_prediction 
+    # path should be path to $PATH_RESULT/results/data/ following run_prediction 
     os.chdir(path)
     t = os.listdir("./")
-    df_results = pd.concat([pd.read_csv(f, index_col="file", delimiter=';') for f in t ])
-    df_t1 = df_results.loc[df_results['contrast'] == 't1']
-    df_t2 = df_results.loc[df_results['contrast'] == 't2']
-    df_t1['number_missed'] = df_t1.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
-    df_t2['number_missed'] = df_t2.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
-    df_t1.to_csv("metrics_t1.csv")
-    df_t2.to_csv("metrics_t2.csv")
+    method = ['TM', 'DL']
+    for x in method:
+        print(x)
+        df_results = pd.concat([pd.read_csv(f, index_col="file", delimiter=';') for f in t ])
+        df_t1 = df_results.loc[df_results['contrast'] == 't1']
+        df_t2 = df_results.loc[df_results['contrast'] == 't2']
+        df_t1 = df_t1.loc[df_t1['method'] == x]
+        df_t2 = df_t2.loc[df_t2['method'] == x]
+        df_t1['number_missed'] = df_t1.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
+        df_t2['number_missed'] = df_t2.apply(lambda row : get_missed_total(row['label_missing']), axis=1)
+        df_t1.to_csv("metrics_t1_"+ x +".csv")
+        df_t2.to_csv("metrics_t2_"+ x +".csv")
+        print('Metric T1 '+ x)
+        print(df_t1.describe())
+        print('________________________________________\n')
+        print('Metric T2 '+ x)
+        print(df_t2.describe())
 
 
 def get_missed_total(x):
