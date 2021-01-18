@@ -56,13 +56,6 @@ for i in $contrast; do
        label_missing=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.check_missing_label(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
        err=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.compute_mean_squared_error(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
 
-## strip unneeded content
-	##err=${err#*)}
-
-## get error in mm
-	##err_mm=${err#*=}
-	##err_mm=${err_mm%%mm*}
-
 ## add csv line with the error and contrast.
 	echo "$file;$err;$label_missing;$c_args">>$PATH_RESULTS/"$SUBJECT"_result.csv
 done
