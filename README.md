@@ -27,4 +27,9 @@ Perform statistics:
 ```bash
 python concat_csv.py -p <PATH_OUTPUT>/results/
 ```
-Where `PATH_OUTPUT` is the output of `run_prediction.sh`
+Where `PATH_OUTPUT` is the output of `run_prediction.sh
+
+### Test on sct\_testing/large (for internal lab user)
+To test on subject from sct_testing/large:
+- The list of used subjects is in `testing\_list.txt`
+- For easier git-annex download, the list of folder to download is available in `list\_download.txt` 
