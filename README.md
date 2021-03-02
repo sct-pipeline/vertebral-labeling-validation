@@ -15,8 +15,8 @@ cd vertebral-labeling-validation
 ```
 
 Edit the parameter files to your local configuration:
-- `parameters/prepare_seg_gt.yml`: Configuration file for `prepare_seg_and_gt.sh`. This script projects labels onto the center of the spinal cord. These labels are single voxels located at the posterior side of each intervertebral disc.
-- `parameters/run_prediction.yml`: Configuration file for `run_prediction.sh`. This script runs `sct_label_vertebrae` and compares outputs to the ground truth using `sct_label_utils`. The Mean Square Error is calculated. It also retrieve the value of the missing labels. Results are saved in a CSV file within the derivatives.
+- `parameters/prepare_seg_gt.yml`: This is the configuration file for the script `prepare_seg_and_gt.sh`. This script projects the manual disc labels (ground truth, single voxel located at the posterior side of each intervertebral disc) onto the center of the spinal cord. The reason we do that is because the output of `sct_label_vertebrae` are labels in the cord (not at the posterior tip of the disc).
+- `parameters/run_prediction.yml`: This is the configuration file for the script `run_prediction.sh`. This script runs `sct_label_vertebrae` and compares outputs to the ground truth using `sct_label_utils`. The Mean Square Error is calculated. It also retrieve the value of the missing labels. Results are saved in a CSV file within the results/ folder.
 
 Run the script:
 ```bash
