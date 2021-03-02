@@ -31,5 +31,5 @@ Where `PATH_OUTPUT` is the output of `run_prediction.sh
 
 ### Test on sct\_testing/large (for internal lab user)
 To test on subject from sct_testing/large:
-- The list of used subjects is in `testing\_list.txt`
+- The list of used subjects is in `testing_list.txt`
 - For easier git-annex download, the list of folder to download is available in `list\_download.txt` 
