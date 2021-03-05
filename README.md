@@ -29,7 +29,9 @@ python concat_csv.py -p <PATH_OUTPUT>/results/
 ```
 Where `PATH_OUTPUT` is the output of `run_prediction.sh
 
-### Test on sct\_testing/large (for internal lab user)
+### Test on sct_testing/large (for internal lab user)
 To test on subject from sct_testing/large:
 - The list of used subjects is in `testing_list.txt`
-- For easier git-annex download, the list of folder to download is available in `list\_download.txt` 
+- To download the subject:
+    - First, perform the (initial setup)[https://github.com/neuropoly/data-management/blob/ng/gitolite/internal-server.md#initial-setup] To use the internal server
+    - To download the subject run `git annex get $(cat vertebral-labeling-validation/list_download.txt) 
