@@ -46,20 +46,23 @@ for met in $Method; do
 
 	for i in $contrast; do
 		file=${SUBJECT}_"$i"w
-		file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
-		c_args=${i/T/t}
-		export SUBJECT=$SUBJECT
-		export file=$file
-		export met=$met
+		if test -f ${file}.nii.gz; then
+			file_seg=$PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/${SUBJECT}_"$i"w_seg.nii.gz
+			c_args=${i/T/t}
+			export SUBJECT=$SUBJECT
+			export file=$file
+			export met=$met
 
-		## make predictions
-		sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c "$c_args" -method ${met} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/$met
-	## compare
-       		label_missing=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.check_missing_label(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["met"]+"/"+ os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
-       		err=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.compute_mean_squared_error(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["met"]+ "/" + os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
+			## make predictions
+			sct_label_vertebrae -i ${file}.nii.gz -s ${file_seg} -c "$c_args" -method ${met} -ofolder $PATH_DATA_PROCESSED/data/derivatives/labels/$SUBJECT/anat/$met
+			## compare
+       			label_missing=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.check_missing_label(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["met"]+"/"+ os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
+       			err=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.compute_mean_squared_error(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["met"]+ "/" + os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
 
-## add csv line with the error and contrast.
-		echo "$file;$err;$label_missing;$c_args;$met">>$PATH_RESULTS/"$SUBJECT"_result.csv
+	## add csv line with the error and contrast.
+			echo "$file;$err;$label_missing;$c_args;$met">>$PATH_RESULTS/"$SUBJECT"_result.csv
+		
+	fi
 	done
 done
 
