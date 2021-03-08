@@ -35,3 +35,7 @@ To test on subject from sct_testing/large:
 - To download the subject:
     - First, perform the (initial setup)[https://github.com/neuropoly/data-management/blob/ng/gitolite/internal-server.md#initial-setup] To use the internal server
     - To download the subject run `git annex get $(cat vertebral-labeling-validation/list_download.txt) 
+- Before processing the subject: 
+    - run `python -m retrieve_large -l <path_to_vertebral_labeling_validation>/testing_list.txt -i <path_to_sct_testing/large>/sct-testing-large -o data_large`
+    - This script will retrieve the folder from the subject in testing_list.txt in another folder (most prediction would fail with sct_run_batch if it was ran on the sct_testing_large dataset)
+- Run the processing on the output folder (`data_large`) 
