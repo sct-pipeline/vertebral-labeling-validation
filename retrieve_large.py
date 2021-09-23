@@ -30,10 +30,10 @@ def main(path_file, path_data, path_output):
         for x in os.listdir(path_in_derivatives):
             if 'labels-disc-manual.nii.gz' in x:
                 name_im_in = x[:-26]+'.nii.gz'
-                if 't2' or 'T2' in x:
+                if 't2' in x.lower():
                     name_im_out = sub + '_T2w.nii.gz'
                     name_gt_out = sub + '_T2w_labels-disc-manual.nii.gz'
-                elif 't1' or 'T1' in x:
+                elif 't1' in x.lower():
                     name_im_out = sub + '_T1w.nii.gz'
                     name_gt_out = sub + '_T1w_labels-disc-manual.nii.gz'
                 print(f"Copying files for {sub}.")
