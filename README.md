@@ -29,13 +29,26 @@ python concat_csv.py -p <PATH_OUTPUT>/results/
 ```
 Where `PATH_OUTPUT` is the output of `run_prediction.sh
 
-### Test on sct_testing/large (for internal lab user)
-To test on subject from sct_testing/large:
-- The list of used subjects is in `testing_list.txt`
-- To download the subject:
-    - First, perform the (initial setup)[https://github.com/neuropoly/data-management/blob/ng/gitolite/internal-server.md#initial-setup] To use the internal server
-    - To download the subject run `git annex get $(cat vertebral-labeling-validation/list_download.txt) 
-- Before processing the subject: 
-    - run `python -m retrieve_large -l <path_to_vertebral_labeling_validation>/testing_list.txt -i <path_to_sct_testing/large>/sct-testing-large -o data_large`
-    - This script will retrieve the folder from the subject in testing_list.txt in another folder (most prediction would fail with sct_run_batch if it was ran on the sct_testing_large dataset)
+### Test on `sct_testing-large` (for internal lab user)
+To test on subjects from `sct-testing-large`:
+1. To download the list of test subjects (see [`testing_list.txt`](testing_list.txt)):
+    - First, perform the [initial setup](https://github.com/neuropoly/data-management/blob/master/internal-server.md#initial-setup) to use the internal git annex server.
+    - Then, run the following commands inside a separate folder:
+      ```bash
+      git clone git@data.neuro.polymtl.ca:datasets/sct-testing-large  
+      cd sct-testing-large
+      
+      # copy-paste and run this as a single command
+      xargs -a ${PATH_TO_vertebral-labeling-validation_REPO}/testing_list.txt -I '{}' \
+        find . -type d -name "*{}*" -print | 
+        xargs -L 1 git annex get
+      ```
+    - This will retrieve the test subjects inside the `sct-testing-large` git annex repo
+2. Then, copy the subject files over to this repo:
+    - Run the following commands:
+      ```bash
+      cd ${PATH_TO_vertebral-labeling-validation_REPO}
+      python -m retrieve_large -l testing_list.txt -i <PATH_TO_sct-testing-large_REPO> -o data_large
+      ```
+    - This is done to be able to easily work on a "fresh copy" and avoid working inside the git annex repo directly, so that it can be wiped and re-run if needed.
 - Run the processing on the output folder (`data_large`) 

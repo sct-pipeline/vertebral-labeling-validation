@@ -21,11 +21,11 @@ def main(path_file, path_data, path_output):
             if 'labels-disc-manual.nii.gz' in x:
                 name_im_in = x[:-26]+'.nii.gz'
                 if 't2' or 'T2' in x:
-                    name_im_out = sub[:-1] +'_T2w.nii.gz'
-                    name_gt_out = sub[:-1] + '_T2w_labels-disc-manual.nii.gz'
+                    name_im_out = sub + '_T2w.nii.gz'
+                    name_gt_out = sub + '_T2w_labels-disc-manual.nii.gz'
                 elif 't1' or 'T1' in x:
-                    name_im_out = sub[:-1] +'_T1w.nii.gz'
-                    name_gt_out = sub[:-1] + '_T1w_labels-disc-manual.nii.gz'
+                    name_im_out = sub + '_T1w.nii.gz'
+                    name_gt_out = sub + '_T1w_labels-disc-manual.nii.gz'
                 shutil.copy(os.path.join(path_tmp_derivatives,x),os.path.join(path_out_derivatives_tmp,name_gt_out))
                 shutil.copy(os.path.join(path_tmp,name_im_in), os.path.join(path_out_tmp,name_im_out))
 
