@@ -39,7 +39,7 @@ cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivativ
 
 cd $PATH_DATA_PROCESSED/$SUBJECT/anat/
 echo "file;error_mm;label_missing;contrast;method">> $PATH_RESULTS/results.csv
-Method='DL'
+Method='TM DL-Countception DL-Hourglass'
 ## Setup file names
 contrast='T1 T2'
 for met in $Method; do
