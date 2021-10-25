@@ -39,11 +39,11 @@ cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivativ
 
 cd $PATH_DATA_PROCESSED/$SUBJECT/anat/
 echo "file;error_mm;label_missing;contrast;method">> $PATH_RESULTS/results.csv
-Method='TM DL-Countception DL-Hourglass'
+
 ## Setup file names
+Method='TM DL-Countception DL-Hourglass'
 contrast='T1 T2'
 for met in $Method; do
-
   for i in $contrast; do
     file=${SUBJECT}_"$i"w
     if test -f ${file}.nii.gz; then
