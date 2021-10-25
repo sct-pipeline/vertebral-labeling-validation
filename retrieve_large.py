@@ -36,7 +36,9 @@ def main(path_file, path_data, path_output):
                 elif 't1' in x.lower():
                     name_im_out = sub + '_T1w.nii.gz'
                     name_gt_out = sub + '_T1w_labels-disc-manual.nii.gz'
-                print(f"Copying files for {sub}.")
+                else:
+                    continue
+                print(f"Copying files for {name_im_out}")
                 path_out_derivatives_tmp = os.path.join(path_output, 'derivatives/labels/', sub, 'anat')
                 path_out_tmp = os.path.join(path_output, sub, 'anat')
                 os.makedirs(path_out_derivatives_tmp, exist_ok=True)
