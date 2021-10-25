@@ -38,7 +38,7 @@ cp -r $PATH_DATA/$SUBJECT ./
 cp -r $PATH_DATA/derivatives/labels/$SUBJECT $PATH_DATA_PROCESSED/data/derivatives/labels
 
 cd $PATH_DATA_PROCESSED/$SUBJECT/anat/
-echo "file;error_mm;label_missing;contrast;method">> $PATH_RESULTS/"$SUBJECT"_result.csv
+echo "file;error_mm;label_missing;contrast;method">> $PATH_RESULTS/results.csv
 Method='DL'
 ## Setup file names
 contrast='T1 T2'
@@ -60,7 +60,7 @@ for met in $Method; do
        			err=$(python -c 'import os; from spinalcordtoolbox import labels as labels, image as image; print (labels.compute_mean_squared_error(image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["met"]+ "/" + os.environ["file"]+"_seg_labeled_discs.nii.gz"),image.Image(os.environ["PATH_DATA_PROCESSED"]+"/data/derivatives/labels/"+os.environ["SUBJECT"]+"/anat/"+ os.environ["file"]+"_projected-gt.nii.gz")))')
 
 ## add csv line with the error and contrast.
-			echo "$file;$err;$label_missing;$c_args;$met">>$PATH_RESULTS/"$SUBJECT"_result.csv
+			echo "$file;$err;$label_missing;$c_args;$met">>$PATH_RESULTS/results.csv
 		fi
 	done
 done
