@@ -1,6 +1,6 @@
-path_data: /home/lucas/prepare_gt/data_processed/data
-path_output: /home/lucas/prediction_version_deep
-script: /home/lucas/vertebral-labeling-validation/run_prediction_deep.sh
+path_data: /data/vertebral-labeling-validation/data_prepared/data_processed/data
+path_output: /data/vertebral-labeling-validation/prediction_version_deep
+script: /home/joshua/repos/vertebral-labeling-validation/run_prediction_deep.sh
 jobs: 2
 batch_log: sct_run_batch_log.txt
 continue_on_error: 0
