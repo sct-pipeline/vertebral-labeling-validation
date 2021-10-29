@@ -4,18 +4,23 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
 
 ### Prerequisites
 
-1. Install `spinalcordtoolbox` from `git` and check out the disc labeling PR:
+1. Install `spinalcordtoolbox` from `git`:
 
     ```bash
     git clone https://github.com/spinalcordtoolbox/spinalcordtoolbox
     cd spinalcordtoolbox
     ./install_sct
+    ```
+   
+2. Check out the branch corresponding to the SCT disc labeling PR
+
+    ```bash
     git checkout lr/Deep_vertebral_labeling
     ```
-    
+
     **Important**: You will want to make sure you are checked out to this branch each time you run `sct_run_batch`. This will only be necessary during the development of the SCT/ivadomed integration. Once [`spinalcordtoolbox`@PR#2679](https://github.com/spinalcordtoolbox/spinalcordtoolbox/pull/2679) has been merged, this step will change.
 
-2. Manually reinstall `ivadomed` in the SCT conda environment, specifically using the "HourglassNet" branch:
+3. Manually reinstall `ivadomed` in the SCT conda environment, specifically using the "HourglassNet" branch:
 
     ```bash
     cd $SCT_DIR
@@ -27,12 +32,12 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
     
     This will only be necessary during the development of the HourglassNet model. Once [`ivadomed`@PR#852](https://github.com/ivadomed/ivadomed/pull/852) has been merged, this step will change.
 
-3. Download a dataset of your choice:
+4. Download a dataset of your choice:
 
     - spine-generic multi-subject dataset [r20201001](https://github.com/spine-generic/data-multi-subject/releases/tag/r20201001)
     - For internal datasets (such as `sct-testing-large`, see [`neuropoly/data-management/internal-server.md`](https://github.com/neuropoly/data-management/blob/master/internal-server.md)
 
-4. Clone this repo, and open it in your terminal
+5. Clone this repo, and open it in your terminal
 
     ```bash
     git clone https://github.com/sct-pipeline/vertebral-labeling-validation
