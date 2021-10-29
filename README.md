@@ -13,7 +13,7 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
     git checkout lr/Deep_vertebral_labeling
     ```
     
-    **Important**: You will want to make sure you are checked out to this branch each time you run `sct_run_batch`.
+    **Important**: You will want to make sure you are checked out to this branch each time you run `sct_run_batch`. This will only be necessary during the development of the SCT/ivadomed integration. Once [`spinalcordtoolbox`@PR#2679](https://github.com/spinalcordtoolbox/spinalcordtoolbox/pull/2679) has been merged, this step will change.
 
 2. Manually reinstall `ivadomed` in the SCT conda environment, specifically using the "HourglassNet" branch:
 
@@ -24,6 +24,8 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
     pip uninstall ivadomed -y
     pip install git+https://github.com/ivadomed/ivadomed.git@jn/539-intervertebral-disc-labeling-pose-estimation
     ```
+    
+    This will only be necessary during the development of the HourglassNet model. Once [`ivadomed`@PR#852](https://github.com/ivadomed/ivadomed/pull/852) has been merged, this step will change.
 
 3. Download a dataset of your choice:
 
