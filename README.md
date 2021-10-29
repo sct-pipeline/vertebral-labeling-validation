@@ -30,7 +30,7 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
 3. Download a dataset of your choice:
 
     - spine-generic multi-subject dataset [r20201001](https://github.com/spine-generic/data-multi-subject/releases/tag/r20201001)
-    - 
+    - For internal datasets (such as `sct-testing-large`, see [`neuropoly/data-management/internal-server.md`](https://github.com/neuropoly/data-management/blob/master/internal-server.md)
 
 4. Clone this repo, and open it in your terminal
 
