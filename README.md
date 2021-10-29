@@ -1,3 +1,5 @@
+# vertebral-labeling-validation
+
 The purpose of this repository is to evaluate the performance of `sct_label_vertebrae` across the implementation of new methods.
 
 ### Prerequisites
