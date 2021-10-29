@@ -2,7 +2,7 @@
 
 The purpose of this repository is to evaluate the performance of `sct_label_vertebrae` across the implementation of new methods.
 
-### Prerequisites
+### 0. Prerequisites
 
 1. Install `spinalcordtoolbox` from `git`:
 
@@ -44,9 +44,9 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
     cd vertebral-labeling-validation
     ```
 
-### Running the preprocessing scripts
+### 1. Preprocessing
 
-1. First, edit `testing_list.txt` to include a list of subjects you want to process. Here, `testing_list.txt` is includes subjects from the `sct_testing_large` dataset. However, if you're using a different dataset, you will want to specify a different list of subjects.
+1. First, edit `testing_list.txt` to include a list of subjects you want to process. Here, `testing_list.txt` includes only subjects from the `sct-testing-large` dataset. However, if you're using a different dataset, you will want to specify a different list of subjects.
 
 2. (Optional) If you are using a `git-annex` dataset, you will want to make sure the files for these subjects are actually downloaded. For example:
 
@@ -71,7 +71,7 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
     This script simply copies the T1w/T2w anat and label files from the original dataset folder (`-i`) to a new folder (`-o`). We do this to avoid working in the original dataset folder:
 
     - This guarantees that the original folder will always have a "fresh" copy of the raw/unprocessed files if we ever want to start over. 
-    - It also means we can apply `sct_run_batch` on the entire folder without having to explicitly specify a list of subjects using `include_list`.
+    - It also means we can apply `sct_run_batch` on the entire folder without having to explicitly specify a subset of subjects using `-include_list`.
 
 4. After that, edit the config file `prepare_seg_and_gt.yml` to match the filepaths on your computer.
 
@@ -85,7 +85,7 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
 
     The corresponding bash script (`prepare_seg_and_gt.sh`) projects the manual disc labels (ground truth, single voxel located at the posterior side of each intervertebral disc) onto the center of the spinal cord. The reason we do that is because the output of `sct_label_vertebrae` are labels in the cord (not at the posterior tip of the disc).
 
-### Testing the disc labeling approaches on the preprocessed data
+### 2. Testing
 
 1. First, edit the config file `run_prediction.yml` to match the filepaths on your computer.
 
