@@ -26,7 +26,6 @@ trap "echo Caught Keyboard Interrupt within script. Exiting now.; exit" INT
 
 # Retrieve input params
 SUBJECT=$1
-FILEPARAM=$2
 
 # SCRIPT STARTS HERE
 # ==============================================================================
