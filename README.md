@@ -46,7 +46,7 @@ The purpose of this repository is to evaluate the performance of `sct_label_vert
 
 ### 1. Preprocessing
 
-1. First, edit `testing_list.txt` to include a list of subjects you want to process. Here, `testing_list.txt` includes only subjects from the `sct-testing-large` dataset. However, if you're using a different dataset, you will want to specify a different list of subjects.
+1. First, edit `testing_list.txt` to include a list of subjects you want to process. By default, `testing_list.txt` contains a subset of viable subjects from the `sct-testing-large` dataset. (The full list of viable subjects is included in `viable-testing-subjects.txt`, however that list includes over 500 subjects, so `testing_list.txt` is a smaller alternative.) However, if you're not using `sct-testing-larg`, you will want to specify a different list of subjects.
 
 2. (Optional) If you are using a `git-annex` dataset, you will want to make sure the files for these subjects are actually downloaded. For example:
 
