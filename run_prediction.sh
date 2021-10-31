@@ -58,13 +58,14 @@ for met in $Method; do
       script_output=()
       while read -r line ; do
         script_output+=("${line}")
-      done <<< "$(python /home/joshua/repos/vertebral-labeling-validation/check_missing_labels.py)"
-      label_gt=${script_output[0]}
-      label_pred=${script_output[1]}
-      err=${script_output[2]}
+      done <<< "$(python /home/joshua/repos/vertebral-labeling-validation/analyze_predictions.py)"
+      tp=${script_output[0]}
+      fn=${script_output[1]}
+      fp=${script_output[2]}
+      dist_mm_z=${script_output[3]}
 
       ## add csv line with the error and contrast.
-      echo "$file;$label_gt;$label_pred;$err;$c_args;$met">>$PATH_RESULTS/results.csv
+      echo "$file;$tp;$fn;$fp;$dist_mm_z;$c_args;$met">>$PATH_RESULTS/results.csv
     fi
   done
 done
