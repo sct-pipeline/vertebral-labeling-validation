@@ -521,6 +521,3 @@ sub-unfPain033
 sub-unfPain034
 sub-unfPain035
 sub-unfPain036
-sub-unfSCT001
-sub-unfSCT002
-sub-unfSCT002
