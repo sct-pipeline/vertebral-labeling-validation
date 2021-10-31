@@ -1,6 +1,6 @@
-path_data: {PATH_TO_STORE_RAW_TESTING_FILES}
-path_output: {PATH_TO_STORE_PREPROCESSING_OUTPUT_FILES}
-script: {PATH_TO_THIS_REPO}/prepare_seg_and_gt.sh
+path_data: /data/vertebral-labeling-validation/data_large
+path_output: /data/vertebral-labeling-validation/data_prepared
+script: /home/joshua/repos/vertebral-labeling-validation/prepare_seg_and_gt.sh
 jobs: 2
 batch_log: sct_run_batch_log.txt
 continue_on_error: 0

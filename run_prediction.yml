@@ -1,5 +1,5 @@
-path_data: {PATH_TO_STORE_PREPROCESSING_OUTPUT_FILES}/data_processed/data
-path_output: {PATH_TO_STORE_PREDICTION_OUTPUT_FILES}
+path_data: /data/vertebral-labeling-validation/data_prepared/data_processed/data
+path_output: /data/vertebral-labeling-validation/prediction_version_deep
 script: /home/joshua/repos/vertebral-labeling-validation/run_prediction.sh
 jobs: 2
 batch_log: sct_run_batch_log.txt
